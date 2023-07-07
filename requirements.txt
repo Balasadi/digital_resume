@@ -80,7 +80,6 @@ pytest==7.3.2
 pytest-django==4.5.2
 python-dateutil==2.8.2
 python3-openid==3.2.0
-pytz==2023.3
 PyYAML==6.0
 qrcode==7.4.2
 redis==4.6.0
