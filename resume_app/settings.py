@@ -32,11 +32,6 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-v8bzoj5)*&_%x-yy7o*z-2$*m1
 # DEBUG = True
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
-
-# SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -133,6 +128,17 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "static/"
+
+STORAGES = {
+    # Enable WhiteNoise's GZip and Brotli compression of static assets:
+    # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'media')
@@ -140,7 +146,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = "/static/"
 # STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_ROOT = BASE_DIR/'assets'
+# STATIC_ROOT = BASE_DIR/'assets'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
@@ -151,4 +157,3 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-django_heroku.settings(locals())
